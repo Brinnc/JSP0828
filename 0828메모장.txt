@@ -1,0 +1,35 @@
+[0828 sql문]
+SQL> 
+conn system/1234
+
+SQL> 
+create tablespace fashionshop
+datafile 'C:\oraclexe\app\oracle\oradata\X\fashionshop.dbf'
+size 5M;
+
+create user fashion
+identified by 1234
+default tablespace fashionshop
+quota unlimited on fashionshop;
+
+grant create session, create table, create sequence to fashion;
+
+SQL> conn fashion/1234
+
+create table admin(
+admin_idx number primary key
+, admin_id varchar2(20)
+, admin_pass varchar2(64)
+, admin_name varchar2(20)
+);
+
+create sequence seq_admin
+increment by 1
+start with 1;
+
+SQL> 
+insert into admin(admin_idx, admin_id, admin_pass, admin_name)
+values(seq_admin.nextval, 'choisa', '1234', 'sena');
+
+SQL> 
+commit;

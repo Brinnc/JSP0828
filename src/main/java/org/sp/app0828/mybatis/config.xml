@@ -5,6 +5,8 @@
 <configuration>
 <typeAliases>
 	<typeAlias type="org.sp.app0828.domain.Admin" alias="Admin" />
+	<typeAlias type="org.sp.app0828.domain.TopCategory" alias="TopCategory" />
+	<typeAlias type="org.sp.app0828.domain.SubCategory" alias="SubCategory" />
 </typeAliases>
 
   <environments default="development">
@@ -21,6 +23,9 @@
   	<!-- SQL문을 자바 소스에 작성하지 않고, xml에 작성하여 유지보수성을 높임 
   	즉, java.sql JDBC를 제어할 필요없이 개발자는 쿼리문에만 집중할 수 있음-->
     <mapper resource="org/sp/app0828/mybatis/AdminMapper.xml"/>
+    <mapper resource="org/sp/app0828/mybatis/TopCategoryMapper.xml"/>
+    <mapper resource="org/sp/app0828/mybatis/SubCategoryMapper.xml"/>
+    
   </mappers>
   
 </configuration>
