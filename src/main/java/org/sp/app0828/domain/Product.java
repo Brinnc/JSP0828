@@ -1,5 +1,7 @@
 package org.sp.app0828.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -10,5 +12,7 @@ public class Product {
 	private String brand;
 	private int price;
 	private String detail;
+	
+	private MultipartFile photo; //html 컴포넌트의 이름과 일치해야 자동으로 받아짐
 	
 }

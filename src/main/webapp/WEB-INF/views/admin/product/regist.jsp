@@ -1,5 +1,5 @@
-<%@page import="org.sp.app0828.domain.TopCategory"%>
 <%@page import="java.util.List"%>
+<%@page import="org.sp.app0828.domain.TopCategory"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <% 
 	List<TopCategory> topList=(List)request.getAttribute("topList");
@@ -231,8 +231,8 @@
 		function regist() {
 			$("#form1").attr({
 				action: "/admin/product/regist",
-				method: "post"
-				
+				method: "post",
+				enctype: "multipart/form-data"
 			});
 			$("#form1").submit();
 			

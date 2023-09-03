@@ -1,0 +1,153 @@
+[0829메모장]
+*SQL문
+
+create table topcategory(
+	topcategory_idx number primary key
+	, top_name varchar2(20)
+);
+
+create table subcategory(
+	subcategory_idx number primary key
+	, topcategory_idx number
+	, sub_name varchar2(20)
+	, constraint fk_topcategory_subcategory foreign key(topcategory_idx) 
+	references topcategory(topcategory_idx)
+);
+
+create sequence seq_topcategory
+increment by 1
+start with 1;
+
+create sequence seq_subcategory
+increment by 1
+start with 1;
+
+insert into topcategory(topcategory_idx, top_name) values(seq_topcategory.nextval, 'top');
+insert into topcategory(topcategory_idx, top_name) values(seq_topcategory.nextval, 'bottom');
+insert into topcategory(topcategory_idx, top_name) values(seq_topcategory.nextval, 'accessory');
+insert into topcategory(topcategory_idx, top_name) values(seq_topcategory.nextval, 'shoes');
+commit;
+
+select * from topcategory;
+
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 1, '가디건');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 1, '티셔츠');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 1, '점퍼');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 1, '코트');
+
+----------------------------------------------------------------하의
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 2, '청바지');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 2, '면바지');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 2, '반바지');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 2, '치마');
+
+-------------------------------------------------------------액세서리
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 3, '귀걸이');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 3, '목걸이');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 3, '반지');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 3, '시계');
+
+----------------------------------------------------------------신발
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 4, '운동화');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 4, '스니커즈');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 4, '구두');
+
+INSERT INTO SUBCATEGORY(subcategory_idx, TOPCATEGORY_IDX, sub_name)
+values(seq_subcategory.nextval, 4, '슬리퍼');
+
+--사이즈 테이블
+CREATE TABLE size_info(
+	size_info_idx NUMBER PRIMARY KEY
+	, spec varchar2(10)
+);
+
+CREATE SEQUENCE seq_size_info
+INCREMENT BY 1
+START WITH 1;
+
+INSERT INTO size_info(size_info_idx, spec)
+values(seq_size_info.nextval, '90');
+
+INSERT INTO size_info(size_info_idx, spec)
+values(seq_size_info.nextval, '95');
+
+INSERT INTO size_info(size_info_idx, spec)
+values(seq_size_info.nextval, '100');
+
+INSERT INTO size_info(size_info_idx, spec)
+values(seq_size_info.nextval, '105');
+
+
+--상품 테이블
+CREATE TABLE product(
+	product_idx NUMBER PRIMARY KEY
+	, subcategory_idx NUMBER 
+	, product_name varchar2(25)
+	, brand varchar2(20)
+	, price NUMBER DEFAULT 0
+	, detail clob
+	, CONSTRAINT fk_subcategory_product FOREIGN key(subcategory_idx)
+	REFERENCES subcategory(subcategory_idx)
+);
+
+CREATE sequence seq_product
+INCREMENT BY 1
+START WITH 1;
+
+--지원하는 사이즈
+CREATE TABLE product_size(
+	product_size_idx NUMBER PRIMARY KEY
+	, product_idx NUMBER --fkey
+	, size_info_idx NUMBER --fkey
+	, CONSTRAINT fk_product_product_size FOREIGN key(product_idx)
+	REFERENCES product(product_idx)
+	, CONSTRAINT fk_size_info_product_size FOREIGN key(size_info_idx)
+	REFERENCES size_info(size_info_idx)
+);
+
+CREATE SEQUENCE seq_product_size
+INCREMENT BY 1
+START WITH 1;
+
+DROP TABLE product_size;
+
+--상품별 이미지
+CREATE TABLE product_img(
+	product_img_idx NUMBER PRIMARY KEY
+	, product_idx NUMBER
+	, filename varchar2(25) 
+	, CONSTRAINT fk_product_product_img FOREIGN key(product_idx)
+	REFERENCES product(product_idx)
+);
+
+CREATE SEQUENCE seq_product_img
+INCREMENT BY 1
+START WITH 1;
+
