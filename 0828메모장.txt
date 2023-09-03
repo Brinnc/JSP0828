@@ -4,7 +4,7 @@ conn system/1234
 
 SQL> 
 create tablespace fashionshop
-datafile 'C:\oraclexe\app\oracle\oradata\X\fashionshop.dbf'
+datafile 'C:\oraclexe\app\oracle\oradata\XE\fashionshop.dbf'
 size 5M;
 
 create user fashion
